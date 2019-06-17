@@ -1,0 +1,67 @@
+version: "3.6"
+services:
+  bonsai-api:
+    container_name: bonsai-api
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: bash -c 'yarn install && tsc && pm2-docker start process.dev.json'
+    tty: true
+    stdin_open: true
+    user: node
+    environment:
+      - NODE_ENV=development
+      - TS_NODE_PROJECT=/var/www/tsconfig.json
+      - TZ=America/Sao_Paulo
+    ports:
+      - 3000:3000/tcp
+      - 9222:9222/tcp
+    networks:
+      - bonsai-backend
+    working_dir: /var/www
+    depends_on:
+      - bonsai-mongodb
+      - bonsai-rabbitmq
+    volumes:
+      - ./:/var/www
+
+  bonsai-mongodb:
+    image: mongo:3.4.18-jessie
+    container_name: bonsai-mongodb
+    stdin_open: true
+    tty: true
+    ports:
+      - 27017:27017/tcp
+    networks:
+      - bonsai-backend
+    volumes:
+      - bonsaimongodata:/data/db
+
+  bonsai-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: bonsai-rabbitmq
+    stdin_open: true
+    tty: true
+    ports:
+      - 8092:15672/tcp
+    networks:
+      - bonsai-backend
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=root
+      - RABBITMQ_DEFAULT_VHOST=local
+    volumes:
+      - bonsairabbitmqdata:/var/lib/rabbitmq/
+
+networks:
+  bonsai-backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 11.11.1.0/24
+
+volumes:
+  bonsaimongodata:
+    name: bonsaimongodata
+  bonsairabbitmqdata:
+    name: rabbitmqdata
