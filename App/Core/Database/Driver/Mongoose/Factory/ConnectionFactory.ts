@@ -1,8 +1,8 @@
-import { Connection, ConnectionOptions, createConnection, set } from 'mongoose';
+import { Connection, ConnectionOptions, createConnection, set } from "mongoose";
 
-import { IApplicationConfiguration } from '../../../../../../Config/IApplicationConfiguration';
-import { ITracer } from '../../../../Tracer/ITracer';
-import { IMongooseConnection } from '../Connection/IMongooseConnection';
+import { IApplicationConfiguration } from "../../../../../../Config/IApplicationConfiguration";
+import { ITracer } from "../../../../Tracer/ITracer";
+import { IMongooseConnection } from "../Connection/IMongooseConnection";
 
 class ConnectionFactory {
   public static async create(
@@ -24,21 +24,21 @@ class ConnectionFactory {
   }
 
   private static async configureTracer(connection: Connection, tracer: ITracer): Promise<void> {
-    set('debug', (coll, method, query, _doc, options) => {
+    set("debug", (coll, method, query, _doc, options) => {
       const dbQuery = JSON.stringify(query);
       const dbOptions = JSON.stringify(options);
       const dbCommand = `db.${coll}.${method}(${dbQuery}, ${dbOptions});`;
 
-      const traceSpan = tracer.createChildSpanFromActiveScope('mongodb.query');
+      const traceSpan = tracer.createChildSpanFromActiveScope("mongodb.query");
 
       traceSpan.addTags({
-        'db.name': connection.model.name,
-        'resource.name': method,
-        'service.name': 'hr-refill-v2-mongodb',
-        'span.type': 'mongodb'
+        "db.name": connection.model.name,
+        "resource.name": method,
+        "service.name": "bonsai-mongodb",
+        "span.type": "mongodb"
       });
 
-      traceSpan.setTag('mongodb.query', dbCommand);
+      traceSpan.setTag("mongodb.query", dbCommand);
 
       traceSpan.finish();
     });

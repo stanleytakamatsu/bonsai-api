@@ -6,13 +6,15 @@ import { IRoute } from "./IRoute";
 import { RestaurantRoute } from "./v1/RestaurantRoute";
 import { RestaurantTableRoute } from "./v1/TableRoute";
 import { BusinessHourRoute } from "./v1/BusinessHourRoute";
+import { BookingRoute } from "./v1/BookingRoute";
 
 class RouteRegistry {
   private static readonly REGISTERED_ROUTES: INewAble<IRoute>[] = [
     HealthRoute,
     RestaurantTableRoute,
     RestaurantRoute,
-    BusinessHourRoute
+    BusinessHourRoute,
+    BookingRoute
   ];
 
   public constructor(private readonly container: IContainerService) {}

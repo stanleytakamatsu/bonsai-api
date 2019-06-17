@@ -1,4 +1,5 @@
 import * as Koa from "koa";
+import * as cors from "koa-cors";
 import * as KoaRouter from "koa-router";
 import * as KoaBodyParser from "koa-bodyparser";
 
@@ -19,6 +20,7 @@ class KoaServer implements IHttpServer {
     this.server = new Koa();
 
     this.server.use(KoaBodyParser());
+    this.server.use(cors());
   }
 
   public route(route: IHttpRoute): IHttpServer {

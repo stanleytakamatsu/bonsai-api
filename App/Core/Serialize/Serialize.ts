@@ -1,8 +1,8 @@
-import { Serialize as ExecuteSerialize, SerializeKeysTo, SnakeCase } from 'cerialize';
+import { Serialize as ExecuteSerialize, SerializeKeysTo, CamelCase } from "cerialize";
 
-import { ISerialize } from './ISerialize';
+import { ISerialize } from "./ISerialize";
 
-SerializeKeysTo(SnakeCase);
+SerializeKeysTo(CamelCase);
 
 abstract class Serialize implements ISerialize {
   public serialize(data: any): any {

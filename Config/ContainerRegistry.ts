@@ -17,6 +17,11 @@ import { TableServiceProvider } from "../App/Domain/Restaurant/Provider/TableSer
 import { TableUseCaseProvider } from "../App/Domain/Restaurant/Provider/TableUseCaseProvider";
 import { TableValidatorProvider } from "../App/Domain/Restaurant/Provider/TableValidatorProvider";
 import { HealthProvider } from "../App/Health/Provider/HealthProvider";
+import { BookingServiceProvider } from "../App/Domain/Booking/Provider/BookingServiceProvider";
+import { BookingUseCaseProvider } from "../App/Domain/Booking/Provider/BookingUseCaseProvider";
+import { BookingValidatorProvider } from "../App/Domain/Booking/Provider/BookingValidatorProvider";
+import { BookingRepositoryProvider } from "../App/Domain/Booking/Provider/BookingRepositoryProvider";
+import { BookingControllerProvider } from "../App/Domain/Booking/Provider/BookingControllerProvider";
 
 class ContainerRegistry implements IContainerRegistry {
   private static readonly REGISTERED_PROVIDERS: INewAble<IProvider>[] = [
@@ -34,7 +39,12 @@ class ContainerRegistry implements IContainerRegistry {
     RestaurantRepositoryProvider,
     RestaurantServiceProvider,
     RestaurantValidatorProvider,
-    RestaurantUseCaseProvider
+    RestaurantUseCaseProvider,
+    BookingServiceProvider,
+    BookingUseCaseProvider,
+    BookingValidatorProvider,
+    BookingRepositoryProvider,
+    BookingControllerProvider
   ];
 
   public constructor(private readonly container: IContainerService) {}

@@ -29,16 +29,16 @@ class Restaurant {
     return this.name;
   }
 
+  public get BusinessHours(): BusinessHour[] {
+    return this.businessHours;
+  }
+
   public get CreatedAt(): moment.Moment {
     return this.createdAt;
   }
 
   public get UpdatedAt(): moment.Moment {
     return this.updatedAt;
-  }
-
-  public get BusinessHours(): BusinessHour[] {
-    return this.businessHours;
   }
 
   public static create(name: string): Restaurant {

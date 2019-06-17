@@ -1,8 +1,8 @@
-import { Deserialize as ExecuteDeserialize, DeserializeKeysFrom, SnakeCase } from 'cerialize';
+import { Deserialize as ExecuteDeserialize, DeserializeKeysFrom, CamelCase } from "cerialize";
 
-import { IDeserialize, IFromJson } from './IDeserialize';
+import { IDeserialize, IFromJson } from "./IDeserialize";
 
-DeserializeKeysFrom(SnakeCase);
+DeserializeKeysFrom(CamelCase);
 
 const Deserialize: IFromJson = class implements IDeserialize {
   public static deserialize<T>(data: any): T {

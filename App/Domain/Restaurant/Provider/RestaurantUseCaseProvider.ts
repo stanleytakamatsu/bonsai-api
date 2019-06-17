@@ -12,6 +12,12 @@ import { RegisterRestaurant } from "../UseCase/RegisterRestaurant";
 import { IAddBusinessHour } from "../UseCase/IAddBusinessHour";
 import { IBusinessHourAdderService } from "../Service/IBusinessHourAdderService";
 import { AddBusinessHour } from "../UseCase/AddBusinessHour";
+import { IGetAvailableHours } from "../UseCase/IGetAvailableHours";
+import { GetAvailableHours } from "../UseCase/GetAvailableHours";
+import { IGetBookings } from "../../Booking/UseCase/IGetBookings";
+import { IGetTables } from "../UseCase/IGetTables";
+import { IGetAvailableTables } from "../UseCase/IGetAvailableTables";
+import { GetAvailableTables } from "../UseCase/GetAvailableTables";
 
 class RestaurantUseCaseProvider implements IProvider {
   public constructor(private readonly container: IContainerService) {}
@@ -21,6 +27,8 @@ class RestaurantUseCaseProvider implements IProvider {
     await this.registerGetRestaurantUseCase();
     await this.registerGetRestaurantsUseCase();
     await this.registerAddBusinessHourUseCase();
+    await this.registerGetAvailableHoursUseCase();
+    await this.registerGetAvailableTablesUseCase();
   }
 
   private async registerRegisterRestaurantUseCase(): Promise<void> {
@@ -81,6 +89,36 @@ class RestaurantUseCaseProvider implements IProvider {
           );
           const logger = await this.container.get<ILogger>(ILogger);
           const useCase = new AddBusinessHour(service, logger);
+
+          resolve(useCase);
+        })
+    );
+  }
+
+  private async registerGetAvailableHoursUseCase(): Promise<void> {
+    this.container.register<IGetAvailableHours>(
+      IGetAvailableHours,
+      () =>
+        new Promise<IGetAvailableHours>(async resolve => {
+          const getBookingsUseCase = await this.container.get<IGetBookings>(IGetBookings);
+          const getTablesUseCase = await this.container.get<IGetTables>(IGetTables);
+          const logger = await this.container.get<ILogger>(ILogger);
+          const useCase = new GetAvailableHours(getBookingsUseCase, getTablesUseCase, logger);
+
+          resolve(useCase);
+        })
+    );
+  }
+
+  private async registerGetAvailableTablesUseCase(): Promise<void> {
+    this.container.register<IGetAvailableTables>(
+      IGetAvailableTables,
+      () =>
+        new Promise<IGetAvailableTables>(async resolve => {
+          const getBookingsUseCase = await this.container.get<IGetBookings>(IGetBookings);
+          const getTablesUseCase = await this.container.get<IGetTables>(IGetTables);
+          const logger = await this.container.get<ILogger>(ILogger);
+          const useCase = new GetAvailableTables(getBookingsUseCase, getTablesUseCase, logger);
 
           resolve(useCase);
         })

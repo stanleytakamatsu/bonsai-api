@@ -1,7 +1,7 @@
-import { IAddBusinessHourCommand } from "../Type/Command/UseCase/IAddBusinessHourCommand";
+import { IMakeBookingCommand } from "../Type/Command/UseCase/IMakeBookingCommand";
 
 interface IMakeBooking {
-  execute(query: IAddBusinessHourCommand): Promise<void>;
+  execute(command: IMakeBookingCommand): Promise<void>;
 }
 
 const IMakeBooking = Symbol.for("IMakeBooking");

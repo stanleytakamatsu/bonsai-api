@@ -1,6 +1,9 @@
 interface IMakeBookingParamter {
   RestaurantGuid: string;
-  ReservationDateTime: Date;
+  TableGuid: string;
+  BookingDateTime: string;
+  Name: string;
+  Email: string;
 }
 
 export { IMakeBookingParamter };
