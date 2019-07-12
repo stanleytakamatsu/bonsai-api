@@ -1,0 +1,56 @@
+stages:
+- name: Build production image
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: superbxp/hopper-main-api:${CICD_GIT_TAG}
+      pushRemote: true
+      registry: index.docker.io
+
+  when:
+    event:
+      include:
+      - tag
+
+- name: Building latest image
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: superbxp/hopper-main-api:latest
+      pushRemote: true
+      registry: index.docker.io
+
+  when:
+    branch:
+      include:
+      - master
+
+- name: Building custom branch
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: superbxp/hopper-main-api:${CICD_GIT_BRANCH}
+      pushRemote: true
+      registry: index.docker.io
+
+  when:
+    branch:
+      exclude:
+      - master
+    event:
+      exclude:
+      - tag
+    event:
+      exclude:
+      - pull_request
+
+notification:
+  recipients:
+  - recipient: '#docker-image-builds'
+    notifier: c-4p6lt:n-5l7xr
+  condition:
+  - Success
+  - Failed
