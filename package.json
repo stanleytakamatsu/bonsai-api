@@ -56,7 +56,7 @@
     "moment-range": "^4.0.2",
     "moment-timezone": "^0.5.23",
     "mongo-querystring": "^4.1.1",
-    "mongoose": "^5.5.4",
+    "mongoose": "^5.7.5",
     "qs": "^6.6.0",
     "query-to-mongo": "^0.10.0",
     "reflect-metadata": "^0.1.12",
