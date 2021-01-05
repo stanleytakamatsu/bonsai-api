@@ -36,7 +36,7 @@
   "dependencies": {
     "@types/moment-range": "^3.1.2",
     "amqplib": "^0.5.3",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cerialize": "^0.1.18",
     "commander": "^2.19.0",
     "deasync": "^0.1.15",
