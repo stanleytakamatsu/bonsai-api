@@ -52,7 +52,7 @@
     "koa-router": "^7.4.0",
     "koajs": "^1.0.0",
     "lodash": "^4.17.11",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moment-range": "^4.0.2",
     "moment-timezone": "^0.5.23",
     "mongo-querystring": "^4.1.1",
