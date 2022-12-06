@@ -57,7 +57,7 @@
     "moment-timezone": "^0.5.23",
     "mongo-querystring": "^4.1.1",
     "mongoose": "^5.5.4",
-    "qs": "^6.6.0",
+    "qs": "^6.7.3",
     "query-to-mongo": "^0.10.0",
     "reflect-metadata": "^0.1.12",
     "tslint-config-prettier": "^1.17.0",
